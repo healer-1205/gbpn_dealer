@@ -17,15 +17,15 @@ class AppStyles {
   }
 
   // Text Style for Large Titles
-  static TextStyle titleTextStyle({
-    required double fontSize,
-    required FontWeight fontWeight,
-    required Color color,
+  static TextStyle textStyle({
+    double? fontSize,
+    FontWeight? fontWeight,
+    Color? color,
   }) {
     return TextStyle(
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      color: color,
+      fontSize: fontSize ?? 18.0,
+      fontWeight: fontWeight ?? FontWeight.normal,
+      color: color ?? Colors.black,
     );
   }
 
