@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 class AppStyles {
   // Elevated Button Style
   static ButtonStyle elevatedButtonStyle({
-    required Color backgroundColor,
-    required Color foregroundColor,
-    required double borderRadius,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    double? borderRadius,
+    double? horizontalPadding,
   }) {
     return ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor,
-      foregroundColor: foregroundColor,
+      backgroundColor: backgroundColor ?? Colors.deepPurpleAccent,
+      foregroundColor: foregroundColor ?? Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(borderRadius ?? 12),
       ),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding ?? 24),
     );
   }
 

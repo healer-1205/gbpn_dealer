@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../signin/page.dart';
 import '../utils/style.dart';
 import '../utils/assets.dart';
+import '../utils/constant.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(height: 20),
           Center(
             child: Text(
-              "GBPN Dialer",
+              StringConstants.appTitle,
               style: AppStyles.textStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
