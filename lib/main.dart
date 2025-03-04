@@ -11,15 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ensure status bar styling is set correctly after the app builds
     Future.delayed(Duration.zero, () {
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: Colors.white, // Transparent status bar
-        statusBarIconBrightness:
-            Brightness.dark, // Light icons for dark backgrounds
-        systemNavigationBarColor: Colors.white, // Bottom nav bar color
-        systemNavigationBarIconBrightness:
-            Brightness.dark, // Dark icons for bottom nav
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarIconBrightness: Brightness.dark,
       ));
     });
 
@@ -30,7 +27,6 @@ class MyApp extends StatelessWidget {
       ),
       builder: (context, child) {
         return SafeArea(
-          // Wrap all pages in SafeArea
           child: child ?? Container(),
         );
       },
