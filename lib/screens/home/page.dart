@@ -1,28 +1,18 @@
 import 'package:flutter/material.dart';
-import '../signin/page.dart';
-import '../utils/style.dart';
-import '../utils/assets.dart';
-import '../utils/constant.dart';
+import '../../utils/style.dart';
+import '../../utils/assets.dart';
+import '../../utils/constant.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class MyHomeScreen extends StatefulWidget {
+  const MyHomeScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomeScreen> createState() => _MyHomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomeScreenState extends State<MyHomeScreen> {
   void _navigateToLogin() {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 300),
-        pageBuilder: (_, __, ___) => const SignInScreen(),
-        transitionsBuilder: (_, animation, __, child) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-      ),
-    );
+    Navigator.pushNamed(context, '/signin');
   }
 
   @override

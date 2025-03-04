@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gbpn_dealer/home/page.dart';
+import 'routing/routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
           child: child ?? const SizedBox.shrink(),
         );
       },
-      home: const MyHomePage(),
+      initialRoute: '/',
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }
