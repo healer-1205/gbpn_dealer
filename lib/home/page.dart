@@ -15,7 +15,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void _navigateToLogin() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const SignInScreen()),
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 300),
+        pageBuilder: (_, __, ___) => const SignInScreen(),
+        transitionsBuilder: (_, animation, __, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
     );
   }
 
@@ -25,8 +31,10 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           const SizedBox(height: 20),
           Center(
@@ -40,12 +48,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           const SizedBox(height: 20),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Text(
               "Powers voice and messages across your devices",
               textAlign: TextAlign.center,
-              style: AppStyles.textStyle(
+              style: TextStyle(
                 fontSize: 16,
                 color: Colors.black54,
               ),
@@ -71,9 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
               foregroundColor: Colors.white,
               borderRadius: 12.0,
             ),
-            child: Text(
+            child: const Text(
               "Start making calls",
-              style: AppStyles.buttonTextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,

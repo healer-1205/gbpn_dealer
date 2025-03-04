@@ -24,7 +24,6 @@ class SignInScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -34,7 +33,7 @@ class SignInScreen extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () async {
-              if (_isNavigatingBack) return; // ✅ Prevent multiple taps
+              if (_isNavigatingBack) return;
 
               _isNavigatingBack = true;
               await _hideKeyboard(context);
@@ -47,7 +46,6 @@ class SignInScreen extends StatelessWidget {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(

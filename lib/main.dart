@@ -3,6 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:gbpn_dealer/home/page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Colors.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+
   runApp(const MyApp());
 }
 
@@ -11,15 +19,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () {
-      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ));
-    });
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       builder: (context, child) {
         return SafeArea(
-          child: child ?? Container(),
+          child: child ?? const SizedBox.shrink(),
         );
       },
       home: const MyHomePage(),
