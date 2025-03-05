@@ -6,22 +6,19 @@ class AuthService {
   final ApiService _api = ApiService();
   final StorageService _storage = StorageService();
 
-  Future<bool> login(String email, String password) async {
-    try {
-      Response response = await _api.post('/mobile-app/login', {
-        "email": email,
-        "password": password,
-      });
+  Future<String?> login(String email, String password) async {
+    Response response = await _api.post('/mobile-app/login', {
+      "email": email,
+      "password": password,
+    });
 
-      if (response.statusCode == 200) {
-        String token = response.data['token'];
-        await _storage.saveToken(token);
-        return true;
-      }
-    } on DioException catch (e) {
-      throw Exception("Login failed: $e");
+    if (response.statusCode == 200) {
+      String token = response.data['token'];
+      await _storage.saveToken(token);
+      return null;
     }
-    return false;
+
+    return response.data['message'];
   }
 
   Future<void> logout() async {

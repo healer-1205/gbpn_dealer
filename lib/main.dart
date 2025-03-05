@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           child: child ?? const SizedBox.shrink(),
         );
       },
-      initialRoute: '/',
+      initialRoute: '/splash',
       onGenerateRoute: Routes.generateRoute,
     );
   }

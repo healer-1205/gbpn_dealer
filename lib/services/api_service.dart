@@ -20,7 +20,7 @@ class ApiService {
     try {
       return await _dio.post(endpoint, data: data);
     } on DioException catch (e) {
-      throw Exception("API request is failed: $e");
+      return e.response!;
     }
   }
 
@@ -28,7 +28,7 @@ class ApiService {
     try {
       return await _dio.get(endpoint);
     } on DioException catch (e) {
-      throw Exception("API request is failed: $e");
+      return e.response!;
     }
   }
 }

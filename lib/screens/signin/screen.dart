@@ -24,35 +24,28 @@ class _SignInScreenState extends State<SignInScreen> {
 
   void _validateAndLogin() async {
     if (!_formKey.currentState!.validate()) return;
-    try {
-      setState(() => _isLoading = true);
-      bool success = await _authService.login(
-        _emailController.text,
-        _passwordController.text,
-      );
-      if (!mounted) return;
 
-      if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Login Successful")),
-        );
+    setState(() => _isLoading = true);
+    String? success = await _authService.login(
+      _emailController.text,
+      _passwordController.text,
+    );
+    if (!mounted) return;
+    setState(() => _isLoading = false);
 
-        Navigator.pushReplacementNamed(context, '/');
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Invalid credentials")),
-        );
+    if (success == null) {
+      await _hideKeyboard(context);
+      setState(() => _isLoading = false);
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/dialpad');
       }
-    } on DioException catch (e) {
-      if (!mounted) return;
-
-      final errorMessage = e.response?.data['error'] ?? "An error occurred";
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Login Failed: $errorMessage")),
+        SnackBar(content: Text(success)),
       );
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
     }
+
+    if (mounted) setState(() => _isLoading = false);
   }
 
   @override
