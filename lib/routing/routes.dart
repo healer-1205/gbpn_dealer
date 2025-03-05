@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../screens/home/page.dart';
-import '../screens/signin/page.dart';
+import '../screens/home/screen.dart';
+import '../screens/signin/screen.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
