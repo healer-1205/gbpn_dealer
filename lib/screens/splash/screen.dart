@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
+import '../../utils/assets.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,6 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _checkAuthentication() async {
     bool isLoggedIn = await _authService.isLoggedIn();
 
+    await Future.delayed(const Duration(milliseconds: 1000));
+
     if (!mounted) return;
 
     if (isLoggedIn) {
@@ -31,10 +34,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Image.asset(
+          ImageAssets.logo,
+          width: 150,
+          fit: BoxFit.fitWidth,
+        ),
       ),
     );
   }
