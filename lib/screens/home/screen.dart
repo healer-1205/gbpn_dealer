@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/style.dart';
 import '../../utils/assets.dart';
 import '../../utils/constant.dart';
@@ -11,8 +12,29 @@ class MyHomeScreen extends StatefulWidget {
 }
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
-  void _navigateToLogin() {
-    Navigator.pushNamed(context, '/signin');
+  @override
+  void initState() {
+    super.initState();
+    _checkFirstLaunch();
+  }
+
+  Future<void> _checkFirstLaunch() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
+
+    if (!isFirstLaunch) {
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/splash');
+      }
+    }
+  }
+
+  Future<void> _completeOnboarding() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isFirstLaunch', false); // Mark as seen
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, '/signin'); // Navigate to login
+    }
   }
 
   @override
@@ -63,7 +85,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: _navigateToLogin,
+            onPressed: _completeOnboarding,
             style: AppStyles.elevatedButtonStyle(
               backgroundColor: Colors.deepPurpleAccent,
               foregroundColor: Colors.white,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'routing/routes.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.white,
@@ -11,11 +12,18 @@ void main() {
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
 
-  runApp(const MyApp());
+  bool isFirstLaunch = await _checkFirstLaunch();
+  runApp(MyApp(initialRoute: isFirstLaunch ? '/home' : '/splash'));
+}
+
+Future<bool> _checkFirstLaunch() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool('isFirstLaunch') ?? true;
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String initialRoute;
+  const MyApp({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,7 @@ class MyApp extends StatelessWidget {
           child: child ?? const SizedBox.shrink(),
         );
       },
-      initialRoute: '/splash',
+      initialRoute: initialRoute,
       onGenerateRoute: Routes.generateRoute,
     );
   }
