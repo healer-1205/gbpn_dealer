@@ -5,7 +5,7 @@ import '../screens/dialpad/screen.dart';
 import '../screens/splash/screen.dart';
 
 class Routes {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/home':
         return MaterialPageRoute(builder: (_) => const MyHomeScreen());
@@ -16,10 +16,7 @@ class Routes {
       case '/dialpad':
         return MaterialPageRoute(builder: (_) => const DialpadScreen());
       default:
-        return MaterialPageRoute(
-          builder: (_) =>
-              const Scaffold(body: Center(child: Text('Page Not Found'))),
-        );
+        return null;
     }
   }
 }
