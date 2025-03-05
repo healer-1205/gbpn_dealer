@@ -4,6 +4,7 @@ import '../../utils/constant.dart';
 import '../../utils/style.dart';
 import '../../utils/assets.dart';
 import '../../services/auth_service.dart';
+import '../../widgets/app_bar.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -29,12 +30,13 @@ class _SignInScreenState extends State<SignInScreen> {
       _emailController.text,
       _passwordController.text,
     );
+
     if (!mounted) return;
+
     setState(() => _isLoading = false);
 
     if (success == null) {
       await _hideKeyboard(context);
-      setState(() => _isLoading = false);
       if (mounted) {
         Navigator.pushReplacementNamed(context, '/dialpad');
       }
@@ -43,8 +45,6 @@ class _SignInScreenState extends State<SignInScreen> {
         SnackBar(content: Text(success)),
       );
     }
-
-    if (mounted) setState(() => _isLoading = false);
   }
 
   @override
@@ -61,10 +61,7 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Scaffold(
         extendBodyBehindAppBar: false,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          surfaceTintColor: Colors.transparent,
-          backgroundColor: Colors.white,
-          elevation: 0,
+        appBar: CustomAppBar.build(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () async {
