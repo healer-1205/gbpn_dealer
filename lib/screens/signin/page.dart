@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:dio/dio.dart';
 import '../../utils/constant.dart';
 import '../../utils/style.dart';
 import '../../utils/assets.dart';
+import '../../services/auth_service.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -13,14 +15,43 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
+  bool _isLoading = false;
 
   static bool _isNavigatingBack = false;
 
-  void _validateAndLogin() {
-    if (_formKey.currentState!.validate()) {
-      // Handle login
+  void _validateAndLogin() async {
+    if (!_formKey.currentState!.validate()) return;
+    try {
+      setState(() => _isLoading = true);
+      bool success = await _authService.login(
+        _emailController.text,
+        _passwordController.text,
+      );
+      if (!mounted) return;
+
+      if (success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Login Successful")),
+        );
+
+        Navigator.pushReplacementNamed(context, '/');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Invalid credentials")),
+        );
+      }
+    } on DioException catch (e) {
+      if (!mounted) return;
+
+      final errorMessage = e.response?.data['error'] ?? "An error occurred";
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Login Failed: $errorMessage")),
+      );
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -138,23 +169,26 @@ class _SignInScreenState extends State<SignInScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ElevatedButton(
-                                onPressed: _validateAndLogin,
-                                style: AppStyles.elevatedButtonStyle(
-                                  backgroundColor: Colors.deepPurpleAccent,
-                                  foregroundColor: Colors.white,
-                                  borderRadius: 12.0,
-                                  horizontalPadding: 110.0,
-                                ),
-                                child: const Text(
-                                  "Login",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                              _isLoading
+                                  ? const CircularProgressIndicator()
+                                  : ElevatedButton(
+                                      onPressed: _validateAndLogin,
+                                      style: AppStyles.elevatedButtonStyle(
+                                        backgroundColor:
+                                            Colors.deepPurpleAccent,
+                                        foregroundColor: Colors.white,
+                                        borderRadius: 12.0,
+                                        horizontalPadding: 110.0,
+                                      ),
+                                      child: const Text(
+                                        "Login",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
                             ],
                           ),
                         ],
