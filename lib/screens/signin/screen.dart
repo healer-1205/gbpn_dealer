@@ -4,7 +4,6 @@ import '../../utils/constant.dart';
 import '../../utils/style.dart';
 import '../../utils/assets.dart';
 import '../../services/auth_service.dart';
-import '../../widgets/app_bar.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -20,7 +19,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final AuthService _authService = AuthService();
   bool _isLoading = false;
 
-  static bool _isNavigatingBack = false;
+  // static bool _isNavigatingBack = false;
 
   void _validateAndLogin() async {
     if (!_formKey.currentState!.validate()) return;
@@ -61,20 +60,20 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Scaffold(
         extendBodyBehindAppBar: false,
         backgroundColor: Colors.white,
-        appBar: CustomAppBar.build(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () async {
-              if (_isNavigatingBack) return;
-              _isNavigatingBack = true;
-              await _hideKeyboard(context);
-              if (context.mounted) {
-                Navigator.pop(context);
-              }
-              _isNavigatingBack = false;
-            },
-          ),
-        ),
+        // appBar: CustomAppBar.build(
+        //   leading: IconButton(
+        //     icon: const Icon(Icons.arrow_back, color: Colors.black),
+        //     onPressed: () async {
+        //       if (_isNavigatingBack) return;
+        //       _isNavigatingBack = true;
+        //       await _hideKeyboard(context);
+        //       if (context.mounted) {
+        //         Navigator.pop(context);
+        //       }
+        //       _isNavigatingBack = false;
+        //     },
+        //   ),
+        // ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
