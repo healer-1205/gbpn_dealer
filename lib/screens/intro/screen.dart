@@ -33,7 +33,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isFirstLaunch', false); // Mark as seen
     if (mounted) {
-      Navigator.pushReplacementNamed(context, '/signin'); // Navigate to login
+      Navigator.pushNamed(context, '/signin'); // Navigate to login
     }
   }
 

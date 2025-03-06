@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../../widgets/app_bar.dart';
 
 class DialpadScreen extends StatefulWidget {
@@ -17,7 +16,7 @@ class _DialpadScreenState extends State<DialpadScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            SystemNavigator.pop();
+            Navigator.pop(context);
           },
         ),
       ),
