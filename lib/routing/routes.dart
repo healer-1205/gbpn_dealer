@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/home/screen.dart';
+import '../screens/intro/screen.dart';
 import '../screens/signin/screen.dart';
 import '../screens/dialpad/screen.dart';
 import '../screens/splash/screen.dart';
@@ -7,7 +7,7 @@ import '../screens/splash/screen.dart';
 class Routes {
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/home':
+      case '/intro':
         return MaterialPageRoute(builder: (_) => const MyHomeScreen());
       case '/splash':
         return MaterialPageRoute(builder: (_) => const SplashScreen());

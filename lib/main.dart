@@ -13,7 +13,7 @@ void main() async {
   ));
 
   bool isFirstLaunch = await _checkFirstLaunch();
-  runApp(MyApp(initialRoute: isFirstLaunch ? '/home' : '/splash'));
+  runApp(MyApp(initialRoute: isFirstLaunch ? '/intro' : '/splash'));
 }
 
 Future<bool> _checkFirstLaunch() async {
