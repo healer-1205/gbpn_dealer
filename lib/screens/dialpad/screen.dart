@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gbpn_dealer/utils/extension.dart';
 
 class DialpadScreen extends StatefulWidget {
   const DialpadScreen({super.key});
@@ -82,27 +83,44 @@ class _DialpadScreenState extends State<DialpadScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 50),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "GBPN Dialer",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "GBPN Dialer",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            const Spacer(),
-            _buildNumberDisplay(),
-            const SizedBox(height: 10),
-            _buildDialpad(),
-            const SizedBox(height: 20),
-            _buildActionButtons(),
-            const SizedBox(height: 40),
-          ],
-        ),
-      ),
+              _buildNumberDisplay(),
+              _buildDialpad(),
+              _buildActionButtons(),
+            ],
+          )
+
+          // Old UI
+          // Column(
+          //   children: [
+          //     const SizedBox(height: 50),
+          //     const Align(
+          //       alignment: Alignment.centerLeft,
+          //       child: Text(
+          //         "GBPN Dialer",
+          //         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          //       ),
+          //     ),
+          //     const Spacer(),
+          //     _buildNumberDisplay(),
+          //     const SizedBox(height: 10),
+          //     _buildDialpad(),
+          //     const SizedBox(height: 20),
+          //     _buildActionButtons(),
+          //     const SizedBox(height: 40),
+          //   ],
+          // ),
+          ),
       bottomNavigationBar: _buildBottomNavigation(),
     );
   }
@@ -150,7 +168,7 @@ class _DialpadScreenState extends State<DialpadScreen> {
       child: GestureDetector(
         onTap: () => _onNumberPressed(number),
         child: Container(
-          height: 80,
+          height: context.screenWidth / 5.5,
           alignment: Alignment.center,
           decoration: const BoxDecoration(
             color: Color.fromARGB(255, 187, 186, 186),
@@ -205,8 +223,8 @@ class _DialpadScreenState extends State<DialpadScreen> {
         // TODO: Implement call functionality
       },
       child: Container(
-        width: 70,
-        height: 70,
+        height: context.screenWidth / 5.5,
+        width: context.screenWidth / 5.5,
         decoration: const BoxDecoration(
           color: Colors.green,
           shape: BoxShape.circle,

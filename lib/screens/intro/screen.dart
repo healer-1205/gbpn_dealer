@@ -46,7 +46,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         elevation: 0,
       ),
       body: Column(
-        mainAxisSize: MainAxisSize.max,
         children: [
           const SizedBox(height: 20),
           Center(
@@ -60,14 +59,16 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             ),
           ),
           const SizedBox(height: 20),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: Text(
-              "Powers voice and messages across your devices",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black54,
+          Expanded(
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                "Powers voice and messages across your devices",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black54,
+                ),
               ),
             ),
           ),

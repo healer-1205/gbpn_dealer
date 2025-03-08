@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gbpn_dealer/utils/extension.dart';
 import '../../utils/constant.dart';
 import '../../utils/style.dart';
 import '../../utils/assets.dart';
@@ -164,7 +165,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                       backgroundColor: Colors.deepPurpleAccent,
                                       foregroundColor: Colors.white,
                                       borderRadius: 12.0,
-                                      horizontalPadding: 110.0,
+                                      horizontalPadding:
+                                          context.screenWidth / 3.8,
                                     ),
                                     child: const Text(
                                       "Login",
