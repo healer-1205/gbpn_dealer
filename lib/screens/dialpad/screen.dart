@@ -10,12 +10,20 @@ class DialpadScreen extends StatefulWidget {
 
 class _DialpadScreenState extends State<DialpadScreen> {
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _controller.text = "";
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   void _onNumberPressed(String number) {
@@ -35,6 +43,8 @@ class _DialpadScreenState extends State<DialpadScreen> {
           TextSelection.collapsed(offset: cursorPosition + 1);
     });
 
+    scrollToEndPosition();
+
     HapticFeedback.lightImpact();
   }
 
@@ -50,6 +60,8 @@ class _DialpadScreenState extends State<DialpadScreen> {
         _controller.selection =
             TextSelection.collapsed(offset: cursorPosition - 1);
       });
+
+      scrollToEndPosition();
 
       HapticFeedback.mediumImpact();
     }
@@ -99,6 +111,7 @@ class _DialpadScreenState extends State<DialpadScreen> {
     return TextField(
       controller: _controller,
       focusNode: _focusNode,
+      scrollController: _scrollController,
       readOnly: true,
       showCursor: true,
       textAlign: TextAlign.center,
@@ -258,5 +271,11 @@ class _DialpadScreenState extends State<DialpadScreen> {
               margin: const EdgeInsets.only(top: 4)),
       ],
     );
+  }
+
+  void scrollToEndPosition() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent + 13,
+        curve: Curves.ease, duration: Duration(milliseconds: 100));
+    _focusNode.requestFocus();
   }
 }
